@@ -112,14 +112,14 @@ if(isset($_FILES)) { //Check to see if a file is uploaded
         //if(strpos($values[0]['attributes']['TEXTBOX119'], "SF") === false) {
             foreach ($values as $key => $val) {
                 if ($val['tag'] === 'TBLWORKERACTIVITY_GROUP4' && $val['level'] === 8 && $val['type'] === 'open') {
-                    $time = explode(":", $val['attributes']['TEXTBOX17']);
+                    $time = explode(":", $val['attributes']['WORKERTIMEWORKEDTOTAL']);
                     $hrs = $time[0];
                     $min = $time[1] * (1/60);
                     //var_dump($time);
                     $array[$i]['hours'] = number_format($hrs + $min,2);
                     //echo($array[$i]['hours']) .  "<br>";
                 }else if($val['tag'] === 'TBLWORKERACTIVITY_GROUP5' && $val['level'] === 10 && $val['type'] === 'open') {
-                    $time = explode(":", $val['attributes']['TEXTBOX9']);
+                    $time = explode(":", $val['attributes']['CLIENTTIMEWORKEDTOTAL']);
                     $hrs = $time[0];
                     $min = $time[1] * (1/60);
                     //var_dump($time);
@@ -127,13 +127,13 @@ if(isset($_FILES)) { //Check to see if a file is uploaded
                     //echo($array[$i]['hours']) .  "<br>";
                 }
                 if ($val['tag'] === 'WORKERGROUP' && $val['level'] === 14 && $val['type'] === 'open') {
-                    $id = explode(":", $val['attributes']['TEXTBOX33']);
+                    $id = explode(":", $val['attributes']['EXTERNALWORKERIDTITLE']);
                     //var_dump($id);
                     $array[$i]['empid'] = trim($id[1]);
 
                 }
                 if ($val['tag'] === 'TBLHEADINGGROUPING' && $val['level'] === 16 && $val['type'] === 'open') {
-                    $temp = explode(":", $val['attributes']['TEXTBOX12']);
+                    $temp = explode(":", $val['attributes']['WORKERNAMETITLE']);
                     $name = explode(",", trim($temp[1]));
                     //var_dump($name);
 
