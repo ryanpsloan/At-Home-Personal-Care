@@ -217,11 +217,18 @@ if(isset($_FILES)) { //Check to see if a file is uploaded
             //var_dump((int) $nArray['empid']);
             if((int)$nArray['empid'] > 0) {
 
-                $output[] = array($nArray['empid'], /*$key*/ "", "", "", "", "E", "01", "", (string) $nArray['hours'], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
-                $tracking[] = array($nArray['empid'], $key, "", "", "", "", "E", "01", "", (string) $nArray['hours'], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
-                if (array_key_exists('overtime', $nArray)) {
-                    $output[] = array($nArray['empid'], /*$key*/ "", "", "", "", "E", "02", "", $nArray['overtime'], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
-                    $tracking[] = array($nArray['empid'], $key, "", "", "", "", "E", "02", "", $nArray['overtime'], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                //$output[] = array($nArray['empid'], /*$key*/ "", "", "", "", "E", "01", "", (string) $nArray['hours'], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                //$tracking[] = array($nArray['empid'], $key, "", "", "", "", "E", "01", "", (string) $nArray['hours'], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                //if (array_key_exists('overtime', $nArray)) {
+                //    $output[] = array($nArray['empid'], /*$key*/ "", "", "", "", "E", "02", "", $nArray['overtime'], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                //    $tracking[] = array($nArray['empid'], $key, "", "", "", "", "E", "02", "", $nArray['overtime'], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                //}
+
+                $output[] = array($nArray['empid'], (string) $nArray['hours'], '');
+                $tracking[] = array($nArray['empid'], $key, (string) $nArray['hours'], '');
+                if(array_key_exists('overtime', $nArray)){
+                    $output[] = array($nArray['empid'], '', (string) $nArray['overtime']);
+                    $tracking[] = array($nArray['empid'], $key, '', (string) $nArray['overtime']);
                 }
 
             }else{
@@ -229,6 +236,8 @@ if(isset($_FILES)) { //Check to see if a file is uploaded
 
             }
         }
+        array_unshift($output, array('Key', 'E_Regular_Hours', 'E_Overtime_Hours'));
+        array_unshift($tracking, array('Key','Name', 'E_Regular_Hours', 'E_Overtime_Hours'));
 
         if(strpos($_SESSION['originalFileName'], "Deming") !== false){
             $temp = explode(" ", $_SESSION['originalFileName']);
